@@ -22,7 +22,7 @@ export function useTimer() {
 
     function reset() {
         setTime(workTime)
-        document.title = workTime.toString()
+        document.title = displayedTime(workTime)
     }
 
     function completWork() {
@@ -84,7 +84,7 @@ export function useTimer() {
         return () => {
             timerWorkerRef.current?.terminate()
         }
-    }, [])
+    }, [workTime, restTime])
 
     return {
         time,
