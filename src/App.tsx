@@ -2,12 +2,8 @@ import { useState } from 'react'
 import { useTimer } from "./hooks/useTimer"
 
 export function App() {
-  const { time, setTime, displayedTime, startTimer, stopTimer, reset, pomodoroCounter, isRunning, isInterval, skipTime, setWorkTime, setRestTime } = useTimer()
+  const { time, setTime, displayedTime, startTimer, stopTimer, reset, pomodoroCounter, isRunning, isInterval, setWorkTime, setRestTime } = useTimer()
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
-
-  function handleOpenSettings() {
-    setIsSettingsOpen(true)
-  }
 
   function handleCloseSettings() {
     setIsSettingsOpen(false)
@@ -25,13 +21,13 @@ export function App() {
   }
 
   return (
-    <div className={`w-screen h-screen flex flex-col justify-center items-center ${isInterval ? 'bg-blue-300' : 'bg-yellow-100'}`}>
-      <h1 className="text-3xl text-blue-500">Pomodoro</h1>
-      <h2>{isInterval ? 'Rest time' : 'Work time!'}</h2>
+    <div className={`w-screen h-screen flex flex-col justify-center items-center ${isInterval ? 'bg-gray-800' : 'bg-gray-900'}`}>
+      <h1 className="text-3xl text-white">Flowmodoro</h1>
+      <h2 className='text-white'>{isInterval ? 'Rest time' : 'Work time!'}</h2>
 
       <div className="flex flex-col items-center gap-4">
-        <p className="mt-4 text-[10rem] font-semibold">{displayedTime(time)}</p>
-        <p className="text-lg font-semibold">#{pomodoroCounter}</p>
+        <p className="mt-4 text-white text-[10rem] font-semibold">{displayedTime(time)}</p>
+        <p className="text-lg text-white font-semibold">#{pomodoroCounter}</p>
       </div>
 
       <div className="mt-8 flex gap-2">
@@ -42,11 +38,9 @@ export function App() {
             <button className="bg-green-600 text-white font-semibold px-8 py-2 rounded-lg" onClick={startTimer}>Start</button>
           }
 
-        <button className="bg-gray-600 text-white font-bold px-8 py-2 rounded-lg" onClick={skipTime}>{'>>'}</button>
       </div>
       <div className='flex gap-4'>
         <button className="mt-8 bg-blue-600 text-white font-semibold px-8 py-2 rounded-lg" onClick={reset}>reset</button>
-        <button className='mt-8 bg-gray-600 text-white font-semibold px-8 py-2 rounded-lg' onClick={handleOpenSettings}>Settings</button>
       </div>
       {
         isSettingsOpen && (

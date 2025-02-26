@@ -5,7 +5,7 @@ import { formatToTwoDigits } from "../utils/formatToTwoDigits"
 // const REST_TIME = 60 * 10 // time in minutes
 
 export function useTimer() {
-    const [workTime, setWorkTime] = useState(60 * 50)
+    const [workTime, setWorkTime] = useState(0)
     const [restTime, setRestTime] = useState(60 * 10)
 
     const [isRunning, setIsRunning] = useState(false)
@@ -16,12 +16,13 @@ export function useTimer() {
 
     const [pomodoroCounter, setPomodoroCounter] = useState(0)
 
-    const audio = new Audio('./src/assets/sounds/Alarm09.mp4')
+    const audio = new Audio('./src/assets/sounds/Alarm10.mp4')
 
-    const displayedTime = (time: number) => `${formatToTwoDigits(Math.trunc(time / 60))}:${(formatToTwoDigits(time % 60))}`
+    const displayedTime = (time: number) => `${formatToTwoDigits((time/60) > 60 ? Math.trunc((time/60)/60) : 0)}:${formatToTwoDigits(Math.trunc((time / 60) ? (time/60)%60 : 0))}:${(formatToTwoDigits(time % 60))}`
 
     function reset() {
         setTime(workTime)
+        setPomodoroCounter(0);
         document.title = displayedTime(workTime)
     }
 
@@ -55,6 +56,7 @@ export function useTimer() {
     function stopTimer() {
         timerWorkerRef.current?.postMessage({ type: 'stop' })
         setIsRunning(false)
+        setPomodoroCounter(prev => prev + 1)
     }
 
     useEffect(() => {

@@ -4,7 +4,7 @@ let isRunning = false;
 let timerInterval = 0
 
 function tick() {
-  postMessage({ type: 'tick', time: --time });
+  postMessage({ type: 'tick', time: ++time });
 }
 
 function timer(isInterval) {
